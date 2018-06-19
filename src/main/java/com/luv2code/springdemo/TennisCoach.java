@@ -5,12 +5,14 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 /**
  * Created by asus on 2/13/2018.
  */
 
 @Component
-@Scope("prototype")
 public class TennisCoach implements Coach {
     @Autowired
     @Qualifier("randomFortuneService")
@@ -32,4 +34,15 @@ public class TennisCoach implements Coach {
     public String getDAilyFortune() {
         return fortuneService.getFortune();
     }
+
+    @PostConstruct
+    public void doMyCleanupStuff(){
+        System.out.println("Inside do my startupStuff");
+    }
+
+    @PreDestroy
+    public void doMyEndupStuff(){
+        System.out.println("Inside do my endup stuff");
+    }
+
 }
